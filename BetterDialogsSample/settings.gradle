@@ -1,0 +1,4 @@
+include ':app'
+include ':libbetterdialogs'
+
+project(':libbetterdialogs').projectDir = new File('../lib-betterdialogs');
