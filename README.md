@@ -27,7 +27,7 @@ new BAlertDialog.Builder(YOUR_INTEGER_DIALOG_TAG)
                 .buildAndShow(MainActivity.this);
 ```
 
-### Button Handling
+#### Button Handling
 By the limitations of `DialogFragment`, it's not possible to set directly a listener into the builder, but you can specify the buttons and the amount you want.
 
 ```
@@ -39,6 +39,7 @@ new BAlertDialog.Builder(YOUR_INTEGER_DIALOG_TAG)
 
 Additionnaly, your activity **may** implement the `BAlertDialog.BAlertDialogListener` to be warned about button clicks.
 See an exemple of implementing this interface below:
+
 ```
 @Override
 public void onDialogButtonClick(BDialog dialog, int buttonClicked) {
@@ -54,6 +55,29 @@ public void onDialogButtonClick(BDialog dialog, int buttonClicked) {
             Toast.makeText(this, "Negative Button", Toast.LENGTH_SHORT).show();
         }
     }
+```
+
+#### View Handling
+Still due to limitations of `DialogFragment`, it's not possible to set a standard View to be added to a BAlertDialog. You need a wrapping into a Parcelable interface.
+
+So you need to create a class that implements `ParcelableView` interface, by implementing these two methods:
+```
+    public View getView(Context context, BAlertDialog.BAlertDialogListener eventProvider);
+    public Padding getPadding(Context context);
+```
+The first one is to get the View you want to add into your dialog.
+The second one is to get the paddings you want your view have inside the dialog. That is used by the `setView(View, int, int, int, int)` method of AlertDialog base API to adjust your view position inside the dialog.
+
+More of that, your wrapping class must implement and handle `Parcelable`. See this http://developer.android.com/reference/android/os/Parcelable.html to understand what is and how to handle it.
+You can see an example with a custom EditText view wrapping in the Sample project.
+
+```
+SampleParcelableView spv = new SampleParcelableView();
+new BAlertDialog.Builder(DIALOG_TAG_ALERT_DIALOG_WITH_VIEW)
+        .setTitle("Custom View")
+        .setView(spv)
+        .setButtons(new String[]{"Button A"})
+        .buildAndShow(MainActivity.this);
 ```
 
 ### Display a ProgressDialog, using BProgressDialog
