@@ -71,6 +71,13 @@ The second one is to get the paddings you want your view have inside the dialog.
 More of that, your wrapping class must implement and handle `Parcelable`. See this http://developer.android.com/reference/android/os/Parcelable.html to understand what is and how to handle it.
 You can see an example with a custom EditText view wrapping in the Sample project.
 
+If you want to send events inside the custom view, just use the eventProvider variable in the getView(Context, BAlertDialog.BAlertDialogListener) interface method. This will be caught by any activities that implements `BAlertDialog.BAlertDialogListener`.
+
+Additionnaly, you can access the ParcelableView one's the dialog creation by using the `getParcelableView()` method of a `BAlertDialog`. Be carreful, this will return null until the Dialog is displayed. Prefer using this logic call :
+```
+((BAlertDialog)BDialogs.get(MainActivity.this, MY_DIALOG_INT_TAG)).getParcelableView();
+```
+
 ```
 SampleParcelableView spv = new SampleParcelableView();
 new BAlertDialog.Builder(DIALOG_TAG_ALERT_DIALOG_WITH_VIEW)
