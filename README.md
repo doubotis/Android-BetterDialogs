@@ -27,12 +27,41 @@ new BAlertDialog.Builder(YOUR_INTEGER_DIALOG_TAG)
                 .buildAndShow(MainActivity.this);
 ```
 
+### Button Handling
+By the limitations of `DialogFragment`, it's not possible to set directly a listener into the builder, but you can specify the buttons and the amount you want.
+
+```
+new BAlertDialog.Builder(YOUR_INTEGER_DIALOG_TAG)
+                .setCaption("Hello World!")
+                .setButtons(new String[] {"Positive Button", "Negative Button", "Neutral Button"})
+                .buildAndShow(MainActivity.this);
+```
+
+Additionnaly, your activity **may** implement the `BAlertDialog.BAlertDialogListener` to be warned about button clicks.
+See an exemple of implementing this interface below:
+```
+@Override
+public void onDialogButtonClick(BDialog dialog, int buttonClicked) {
+
+    if (dialog.getDialogTag() == YOUR_INTEGER_DIALOG_TAG) {
+        if (buttonClicked == BAlertDialog.BAlertDialogListener.BUTTON_NEUTRAL) {
+            Toast.makeText(this, "Neutral Button", Toast.LENGTH_SHORT).show();
+        }
+        else if (buttonClicked == BAlertDialog.BAlertDialogListener.BUTTON_POSITIVE) {
+            Toast.makeText(this, "Positive Button", Toast.LENGTH_SHORT).show();
+        }
+        else if (buttonClicked == BAlertDialog.BAlertDialogListener.BUTTON_NEGATIVE) {
+            Toast.makeText(this, "Negative Button", Toast.LENGTH_SHORT).show();
+        }
+    }
+```
+
 ### Display a ProgressDialog, using BProgressDialog
 Same as ProgressDialog base API. you can call `BProgressDialog.Builder` builder class.
 
 The following example will make a BProgressDialog with spinner and a "Please wait" caption and simply display it on the main activity.
 ```
-new BProgressDialog.Builder(DIALOG_TAG_PROGRESS_DIALOG)
+new BProgressDialog.Builder(YOUR_INTEGER_DIALOG_TAG)
                 .setCaption("Please wait")
                 .setIndeterminate(true)
                 .buildAndShow(MainActivity.this);
