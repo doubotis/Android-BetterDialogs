@@ -1,5 +1,6 @@
 # Android-BetterDialogs
 Android Dialogs with fragment support, using same Builder APIs
+This library allows you to control dialogs one's displayed, even if the orientation of the screen was changed.
 
 ## Limitations
 * Android 4.0+ only
@@ -104,6 +105,8 @@ You can use the unique static class method `BDialogs.get(Activity activity, int 
 The method will return to you the dialog you want if it is present on the specified activity. If not, this returns null.
 
 A `BDialog` instance is only an interface, that is implemented by `BAlertDialog` and `BProgressDialog` classes. These classes extends `DialogFragment`, so with a fast casting you can use any method of `DialogFragment`.
+
+This is useful when you want to get a dialog that was displayed without storing it as an Activity's variable member. More of that, even if the screen changes his orientation, `BDialogs.get(Activity activity, int tag)` is still able to lookup the dialog, based on the dialog you specify on the Builder.
 
 ## More information
 See the Sample project to get all the way to control dialogs with the Better Dialogs library.
