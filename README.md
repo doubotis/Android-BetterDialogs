@@ -2,8 +2,8 @@
 Android Dialogs with fragment support, using same Builder APIs
 
 ## Limitations
-Android 4.0+ only
-Needs android.support.v7
+* Android 4.0+ only
+* Needs android.support.v7
 
 ## Install
 
